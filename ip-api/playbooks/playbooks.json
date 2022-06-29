@@ -1,0 +1,99 @@
+{
+  "type": "workflow_collections",
+  "data": [
+    {
+      "uuid": "c14750dd-dcda-4b52-bf07-b2c294b9b47c",
+      "@type": "WorkflowCollection",
+      "name": "Sample - IP-API - 1.0.0",
+      "description": "IP-API helps to get the following information for any IP address: city, region (name & code), country (name & code), continent, postal code / zip code, latitude, longitude, time zone,  utc offset, european union (EU) membership, country calling code, country capital, country tld (top-level domain), currency (name & code), area & population of the country, languages spoken, asn, organization and hostname. This connector facilitates automated operation related to ip-api.",
+      "visible": true,
+      "image": null,
+      "recordTags": [
+        "Ip",
+        "ip-api"
+      ],
+      "workflows": [
+        {
+          "@type": "Workflow",
+          "uuid": "4531d028-a419-4edb-84e8-ddd4cc8d75fe",
+          "collection": "/api/3/workflow_collections/c14750dd-dcda-4b52-bf07-b2c294b9b47c",
+          "triggerLimit": null,
+          "description": "Execute batch API to query multiple IP addresses in one HTTP request. This is significantly faster than submitting individual queries.",
+          "name": "Execute Batch API",
+          "tag": "#IP-API",
+          "recordTags": [
+            "Ip",
+            "ip-api"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/7c797d0a-0dfa-4be0-95d6-99ea2560be61",
+          "steps": [
+            {
+              "uuid": "7c797d0a-0dfa-4be0-95d6-99ea2560be61",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "c871e9f2-46bf-4d96-8df8-7fcc0a7051f1",
+                "title": "IP-API: Execute Batch API",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "b64066f1-15b9-4e05-93cd-667fc5af63e8",
+              "@type": "WorkflowStep",
+              "name": "Execute Batch API",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "IP-API",
+                "config": "''",
+                "params": [],
+                "version": "1.0.0",
+                "connector": "ip-api",
+                "operation": "execute_batch_api",
+                "operationTitle": "Execute Batch API",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "98d3a6b2-e720-477f-b67d-f95556309ad3",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Execute Batch API",
+              "sourceStep": "/api/3/workflow_steps/7c797d0a-0dfa-4be0-95d6-99ea2560be61",
+              "targetStep": "/api/3/workflow_steps/b64066f1-15b9-4e05-93cd-667fc5af63e8"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

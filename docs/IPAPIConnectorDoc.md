@@ -25,17 +25,18 @@ Certified: No
 For the procedure to configure a connector, click [here](https://docs.fortinet.com/document/fortisoar/0.0.0/configuring-a-connector/1/configuring-a-connector)
 ### Configuration parameters
 <p>In FortiSOAR&trade;, on the Connectors page, click the <strong>IP-API</strong> connector row (if you are in the <strong>Grid</strong> view on the Connectors page) and in the <strong>Configurations&nbsp;</strong> tab enter the required configuration details:&nbsp;</p>
-<table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Server URL<br></td><td>URL of the IP-API connector to access the connector website.<br>
+<table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>Server URL<br></td><td>URL of the IP-API to which you will connect and perform the automated operations.<br>
 </tbody></table>
 
 ## Actions supported by the connector
 The following automated operations can be included in playbooks and you can also use the annotations to access operations from FortiSOAR&trade; release 4.10.0 and onwards:
-<table border=1><thead><tr><th>Function<br></th><th>Description<br></th><th>Annotation and Category<br></th></tr></thead><tbody><tr><td>Execute Batch API<br></td><td>Execute batch API to query multiple IP addresses in one HTTP request. This is significantly faster than submitting individual queries.<br></td><td>execute_batch_api <br/>Investigation<br></td></tr>
+<table border=1><thead><tr><th>Function<br></th><th>Description<br></th><th>Annotation and Category<br></th></tr></thead><tbody><tr><td>Get IP Geolocation<br></td><td>Retrieves the geolocation of specified IPs. Execute batch API will query multiple IP addresses in one HTTP request.<br></td><td>execute_batch_api <br/>Investigation<br></td></tr>
+<tr><td>Get DNS Geolocation<br></td><td>Retrieve the Client Subnet (edns-client-subnet) and DNS Server. Execute DNS API will return the IP address and geolocation of the dns server the client used<br></td><td>execute_dns_api <br/>Investigation<br></td></tr>
 </tbody></table>
 
-### operation: Execute Batch API
+### operation: Get IP Geolocation
 #### Input parameters
-<table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>List of Ip Addresses<br></td><td>Required list of ip addresses eg: ['8.8.8.8', '24.48.0.1'].<br>
+<table border=1><thead><tr><th>Parameter<br></th><th>Description<br></th></tr></thead><tbody><tr><td>IP Addresses<br></td><td>Specify the list of IP addresses whose geolocation data needs to be retrieved. eg: ['8.8.8.8', '24.48.0.1'].<br>
 </td></tr></tbody></table>
 
 #### Output
@@ -56,9 +57,24 @@ The output contains the following populated JSON schema:
 </code><code><br>&nbsp;&nbsp;&nbsp;&nbsp;    "as": "",
 </code><code><br>&nbsp;&nbsp;&nbsp;&nbsp;    "query": ""
 </code><code><br>}</code>
+### operation: Get DNS Geolocation
+#### Input parameters
+None.
+#### Output
+The output contains the following populated JSON schema:
+<code><br>{
+</code><code><br>&nbsp;&nbsp;&nbsp;&nbsp;    "dns": {
+</code><code><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        "ip": "",
+</code><code><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        "geo": ""
+</code><code><br>&nbsp;&nbsp;&nbsp;&nbsp;    },
+</code><code><br>&nbsp;&nbsp;&nbsp;&nbsp;    "edns": {
+</code><code><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        "ip": "",
+</code><code><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        "geo": ""
+</code><code><br>&nbsp;&nbsp;&nbsp;&nbsp;    }
+</code><code><br>}</code>
 ## Included playbooks
 The `Sample - ip-api - 1.0.0` playbook collection comes bundled with the IP-API connector. These playbooks contain steps using which you can perform all supported actions. You can see bundled playbooks in the **Automation** > **Playbooks** section in FortiSOAR<sup>TM</sup> after importing the IP-API connector.
 
-- Batch:
+- Execute Batch API
 
 **Note**: If you are planning to use any of the sample playbooks in your environment, ensure that you clone those playbooks and move them to a different collection, since the sample playbook collection gets deleted during connector upgrade and delete.

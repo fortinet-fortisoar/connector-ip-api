@@ -23,19 +23,19 @@ class IPAPI(object):
 
     def make_rest_call(self, endpoint, method='POST', data=None, headers=None):
         url = self.url + endpoint
-        logger.info('Final url to make rest call is: {0}'.format(url))
+        logger.debug('Final url to make rest call is: {0}'.format(url))
         if headers:
             self.headers.update(headers)
         if data:
-            logger.info('Converting the data: {0} into an equivalent JSON object.'.format(data))
+            logger.debug('Converting the data: {0} into an equivalent JSON object.'.format(data))
             data = json.dumps(data)
-            logger.info('After converting into a JSON object: {0}'.format(data))
+            logger.debug('After converting into a JSON object: {0}'.format(data))
         try:
-            logger.info('Making a request with {0} method, {1} data and {2} as headers.'.format(method, data, self.headers))
+            logger.debug('Making a request with {0} method, {1} data and {2} as headers.'.format(method, data, self.headers))
             response = requests.request(method, url, data=data, headers=self.headers)
             if response.status_code in [200]:
                 try:
-                    logger.info('Converting the response into JSON format after returning with status code: {0}'.format(
+                    logger.debug('Converting the response into JSON format after returning with status code: {0}'.format(
                         response.status_code))
                     response_data = response.json()
                     return {'status': response_data['status'] if 'status' in response_data else 'Success',
@@ -55,6 +55,10 @@ class IPAPI(object):
     def execute_batch_api(self, params):
         endpoint = '/batch'
         return self.make_rest_call(endpoint=endpoint, data=params.get('list_of_ip_addr'))
+
+    def execute_dns_api(self, params):
+        endpoint = '/json'
+        return self.make_rest_call(endpoint=endpoint, method='GET', data='')
 
 
 def _run_operation(config, params):

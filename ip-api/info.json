@@ -15,8 +15,8 @@
             {
                 "title": "Server URL",
                 "type": "text",
-                "description": "URL of the IP-API connector to access the connector website.",
-                "tooltip": "URL of the IP-API connector to access the connector website. e.g. https://ip-api.com",
+                "description": "URL of the IP-API to which you will connect and perform the automated operations.",
+                "tooltip": "URL of the IP-API connector to access the connector website.",
                 "value": "ip-api.com",
                 "placeholder": "ip-api.com or https://ip-api.com",
                 "name": "server",
@@ -29,8 +29,8 @@
     "operations": [
         {
             "operation": "execute_batch_api",
-            "title": "Execute Batch API",
-            "description": "Execute batch API to query multiple IP addresses in one HTTP request. This is significantly faster than submitting individual queries.",
+            "title": "Get IP Geolocation",
+            "description": "Retrieves the geolocation of specified IPs. Execute batch API will query multiple IP addresses in one HTTP request.",
             "enabled":true,
             "category": "investigation",
             "annotation": "execute_batch_api",
@@ -54,17 +54,38 @@
             ],
             "parameters": [
                 {
-                    "title": "List of Ip Addresses",
+                    "title": "IP Addresses",
                     "type": "text",
                     "name": "list_of_ip_addr",
                     "required": true,
                     "visible": true,
                     "editable": true,
                     "placeholder": ["8.8.8.8", "24.48.0.1"],
-                    "description": "Required list of ip addresses eg: ['8.8.8.8', '24.48.0.1'].",
-                    "tooltip": "Required list of ip addresses eg: ['8.8.8.8', '24.48.0.1']."
+                    "description": "Specify the list of IP addresses whose geolocation data needs to be retrieved. eg: ['8.8.8.8', '24.48.0.1'].",
+                    "tooltip": "Comma separated IP addresses or list of IP addresses."
                 }
             ]
+        },
+        {
+            "operation": "execute_dns_api",
+            "title": "Get DNS Geolocation",
+            "description": "Retrieve the Client Subnet (edns-client-subnet) and DNS Server. Execute DNS API will return the IP address and geolocation of the dns server the client used",
+            "enabled":true,
+            "category": "investigation",
+            "annotation": "execute_dns_api",
+            "output_schema": [
+                {
+                    "dns": {
+                        "ip": "",
+                        "geo": ""
+                    },
+                    "edns": {
+                        "ip": "",
+                        "geo": ""
+                    }
+                }
+            ],
+            "parameters": []
         }
     ]
 }

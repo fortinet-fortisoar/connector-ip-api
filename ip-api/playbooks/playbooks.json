@@ -1,0 +1,179 @@
+{
+  "type": "workflow_collections",
+  "data": [
+    {
+      "uuid": "d2f2fab3-e184-49c0-9ff8-4d2aa3700b7f",
+      "@type": "WorkflowCollection",
+      "name": "Sample - IP-API - 1.0.0",
+      "description": "IP-API helps to get the following information for any IP address: city, region (name & code), country (name & code), continent, postal code / zip code, latitude, longitude, time zone,  utc offset, european union (EU) membership, country calling code, country capital, country tld (top-level domain), currency (name & code), area & population of the country, languages spoken, asn, organization and hostname. This connector facilitates automated operation related to ip-api.",
+      "visible": true,
+      "image": null,
+      "recordTags": [
+        "Ip",
+        "ip-api"
+      ],
+      "workflows": [
+        {
+          "@type": "Workflow",
+          "uuid": "796e782e-3015-4ae8-861c-032292de1947",
+          "collection": "/api/3/workflow_collections/d2f2fab3-e184-49c0-9ff8-4d2aa3700b7f",
+          "triggerLimit": null,
+          "description": "Retrieves the geolocation of specified IPs. Execute batch API will query multiple IP addresses in one HTTP request.",
+          "name": "Get IP Geolocation",
+          "tag": "#IP-API",
+          "recordTags": [
+            "Ip",
+            "ip-api"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/940d7f9e-c99b-4216-bdd9-4f40371a8c50",
+          "steps": [
+            {
+              "uuid": "940d7f9e-c99b-4216-bdd9-4f40371a8c50",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "5f77c50f-f007-4f73-8c9d-f22b9b7c3b47",
+                "title": "IP-API: Get IP Geolocation",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "3f143f48-6445-4f30-b98f-7e18b53c4561",
+              "@type": "WorkflowStep",
+              "name": "Get IP Geolocation",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "IP-API",
+                "config": "''",
+                "params": [],
+                "version": "1.0.0",
+                "connector": "ip-api",
+                "operation": "execute_batch_api",
+                "operationTitle": "Get IP Geolocation",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "4604ea83-1a97-4e27-b0f7-90cab9f34be2",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get IP Geolocation",
+              "sourceStep": "/api/3/workflow_steps/940d7f9e-c99b-4216-bdd9-4f40371a8c50",
+              "targetStep": "/api/3/workflow_steps/3f143f48-6445-4f30-b98f-7e18b53c4561"
+            }
+          ]
+        },
+        {
+          "@type": "Workflow",
+          "uuid": "ff9e2160-b863-41fe-b036-746872d1ac1d",
+          "collection": "/api/3/workflow_collections/d2f2fab3-e184-49c0-9ff8-4d2aa3700b7f",
+          "triggerLimit": null,
+          "description": "Retrieve the Client Subnet (edns-client-subnet) and DNS Server. Execute DNS API will return the IP address and geolocation of the dns server the client used",
+          "name": "Get DNS Geolocation",
+          "tag": "#IP-API",
+          "recordTags": [
+            "Ip",
+            "ip-api"
+          ],
+          "isActive": false,
+          "debug": false,
+          "singleRecordExecution": false,
+          "parameters": [],
+          "synchronous": false,
+          "triggerStep": "/api/3/workflow_steps/bf850fe4-ab4d-49bf-9ce5-e6fd42d98fbc",
+          "steps": [
+            {
+              "uuid": "bf850fe4-ab4d-49bf-9ce5-e6fd42d98fbc",
+              "@type": "WorkflowStep",
+              "name": "Start",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "route": "49b0e3f1-f0f2-48da-a305-0e267774d0a0",
+                "title": "IP-API: Get DNS Geolocation",
+                "resources": [
+                  "alerts"
+                ],
+                "inputVariables": [],
+                "step_variables": {
+                  "input": {
+                    "records": "{{vars.input.records[0]}}"
+                  }
+                },
+                "singleRecordExecution": false,
+                "noRecordExecution": true,
+                "executeButtonText": "Execute"
+              },
+              "left": "20",
+              "top": "20",
+              "stepType": "/api/3/workflow_step_types/f414d039-bb0d-4e59-9c39-a8f1e880b18a"
+            },
+            {
+              "uuid": "bb13393b-9a04-4720-9d22-bac07118d007",
+              "@type": "WorkflowStep",
+              "name": "Get DNS Geolocation",
+              "description": null,
+              "status": null,
+              "arguments": {
+                "name": "IP-API",
+                "config": "''",
+                "params": [],
+                "version": "1.0.0",
+                "connector": "ip-api",
+                "operation": "execute_dns_api",
+                "operationTitle": "Get DNS Geolocation",
+                "step_variables": {
+                  "output_data": "{{vars.result}}"
+                }
+              },
+              "left": "188",
+              "top": "120",
+              "stepType": "/api/3/workflow_step_types/0bfed618-0316-11e7-93ae-92361f002671"
+            }
+          ],
+          "routes": [
+            {
+              "@type": "WorkflowRoute",
+              "uuid": "bd212576-b7c0-4954-8ca0-37d645b26c87",
+              "label": null,
+              "isExecuted": false,
+              "name": "Start-> Get DNS Geolocation",
+              "sourceStep": "/api/3/workflow_steps/bf850fe4-ab4d-49bf-9ce5-e6fd42d98fbc",
+              "targetStep": "/api/3/workflow_steps/bb13393b-9a04-4720-9d22-bac07118d007"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

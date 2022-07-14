@@ -1,0 +1,91 @@
+{
+    "name": "ip-api",
+    "version": "1.0.0",
+    "label": "IP-API",
+    "description": "IP-API helps to get the following information for any IP address: city, region (name & code), country (name & code), continent, postal code / zip code, latitude, longitude, time zone,  utc offset, european union (EU) membership, country calling code, country capital, country tld (top-level domain), currency (name & code), area & population of the country, languages spoken, asn, organization and hostname. This connector facilitates automated operation related to ip-api.",
+    "publisher": "spryIQ.co",
+    "icon_small_name": "ip-api32x32.png",
+    "icon_large_name": "ip-api80x80.png",
+    "category": "Threat Intelligence",
+    "cs_compatible": true,
+    "cs_approved": false,
+    "help_online": "https://github.com/bidisha-spryiq/connector-ip-api/blob/develop/docs/IPAPIConnectorDoc.md",
+    "configuration": {
+        "fields": [
+            {
+                "title": "Server URL",
+                "type": "text",
+                "description": "URL of the IP-API to which you will connect and perform the automated operations.",
+                "tooltip": "URL of the IP-API connector to access the connector website.",
+                "value": "ip-api.com",
+                "placeholder": "ip-api.com or https://ip-api.com",
+                "name": "server",
+                "required": true,
+                "visible": true,
+                "editable": true
+            }
+        ]
+    },
+    "operations": [
+        {
+            "operation": "execute_batch_api",
+            "title": "Get IP Geolocation",
+            "description": "Retrieves the geolocation of specified IPs. Execute batch API will query multiple IP addresses in one HTTP request.",
+            "enabled":true,
+            "category": "investigation",
+            "annotation": "execute_batch_api",
+            "output_schema": [
+                {
+                    "status": "",
+                    "country": "",
+                    "countryCode": "",
+                    "region": "",
+                    "regionName": "",
+                    "city": "",
+                    "zip": "",
+                    "lat": "",
+                    "lon": "",
+                    "timezone": "",
+                    "isp": "",
+                    "org": "",
+                    "as": "",
+                    "query": ""
+                }
+            ],
+            "parameters": [
+                {
+                    "title": "IP Addresses",
+                    "type": "text",
+                    "name": "list_of_ip_addr",
+                    "required": true,
+                    "visible": true,
+                    "editable": true,
+                    "placeholder": ["8.8.8.8", "24.48.0.1"],
+                    "description": "Specify the list of IP addresses whose geolocation data needs to be retrieved. eg: ['8.8.8.8', '24.48.0.1'].",
+                    "tooltip": "Comma separated IP addresses or list of IP addresses."
+                }
+            ]
+        },
+        {
+            "operation": "execute_dns_api",
+            "title": "Get DNS Geolocation",
+            "description": "Retrieve the Client Subnet (edns-client-subnet) and DNS Server. Execute DNS API will return the IP address and geolocation of the dns server the client used",
+            "enabled":true,
+            "category": "investigation",
+            "annotation": "execute_dns_api",
+            "output_schema": [
+                {
+                    "dns": {
+                        "ip": "",
+                        "geo": ""
+                    },
+                    "edns": {
+                        "ip": "",
+                        "geo": ""
+                    }
+                }
+            ],
+            "parameters": []
+        }
+    ]
+}

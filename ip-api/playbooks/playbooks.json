@@ -9,7 +9,6 @@
       "visible": true,
       "image": null,
       "recordTags": [
-        "Ip",
         "ip-api"
       ],
       "workflows": [
@@ -22,7 +21,6 @@
           "name": "Get IP Geolocation",
           "tag": "#IP-API",
           "recordTags": [
-            "Ip",
             "ip-api"
           ],
           "isActive": false,
@@ -102,7 +100,6 @@
           "name": "Get DNS Geolocation",
           "tag": "#IP-API",
           "recordTags": [
-            "Ip",
             "ip-api"
           ],
           "isActive": false,

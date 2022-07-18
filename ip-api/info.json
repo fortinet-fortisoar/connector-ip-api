@@ -9,7 +9,7 @@
     "category": "Threat Intelligence",
     "cs_compatible": true,
     "cs_approved": false,
-    "help_online": "https://github.com/bidisha-spryiq/connector-ip-api/blob/develop/docs/IPAPIConnectorDoc.md",
+    "help_online": "https://docs.fortinet.com/document/fortisoar/1.0.0/ip-api/343/ip-api-v1-0-0",
     "configuration": {
         "fields": [
             {
